@@ -1,0 +1,31 @@
+{
+    "name": "Space Slug",
+    "description": "",
+    "dependencies": {
+        "device": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "assets.json",
+        "images.g.jres",
+        "images.g.ts",
+        "main.py"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "branch": "v1.4.41",
+        "tag": "v1.4.41",
+        "commits": "https://github.com/microsoft/pxt-arcade/commits/ed3803974f2bd6ba24ac93feedbd9b7f508e395d",
+        "target": "1.4.43",
+        "pxt": "6.12.22",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj"
+}
