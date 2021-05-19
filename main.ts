@@ -1,3 +1,12 @@
+namespace SpriteKind {
+    export const EnemyBoss = SpriteKind.create()
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.EnemyBoss, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    scene.cameraShake(8, 500)
+    info.changeLifeBy(-2)
+    music.playMelody("C5 B A G F E D C ", 500)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     projectile = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
@@ -18,10 +27,17 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `, spacePlane, 200, 0)
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.EnemyBoss, function (sprite, otherSprite) {
+    destroy_enemy(sprite, otherSprite, 2)
+})
+function destroy_enemy (enemy: Sprite, projectile: Sprite, score: number) {
+    enemy.destroy(effects.warmRadial, 500)
+    projectile.destroy()
+    info.changeScoreBy(score)
+    music.baDing.play()
+}
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.warmRadial, 500)
-    sprite.destroy()
-    info.changeScoreBy(1)
+    destroy_enemy(sprite, otherSprite, 1)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -72,7 +88,7 @@ game.onUpdateInterval(randint(1, 10) * 1000, function () {
         . . . . 9 . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy)
+        `, SpriteKind.EnemyBoss)
     bigBogey.setVelocity(-30, 0)
     bigBogey.setPosition(160, randint(5, 115))
     bigBogey.setFlag(SpriteFlag.AutoDestroy, true)
